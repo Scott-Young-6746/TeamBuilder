@@ -14,7 +14,7 @@ public class NaiveGroupGeneration implements GroupGeneration {
 		for(StudentRelationGraph stu : students){
 			boolean cont = false;
 			for(Team team : teams){
-				if(team.contains(stu) == true){
+				if(team.contains(stu.getStudent()) == true){
 					cont = true;
 				}
 			}
@@ -30,14 +30,14 @@ public class NaiveGroupGeneration implements GroupGeneration {
 				ArrayList<StudentRelationGraph> partnersMatches = partner.getPotentialPartners();
 				//Oh for sure!
 				for(StudentRelationGraph third : partnersMatches){
-					if(potentialPartners.contains(third) != true){
+					if(potentialPartners.contains(third.getStudent()) != true){
 						canMatch = false;
 					}
 				}
 				if(canMatch){
 					for(Team team : teams){
-						if(team.contains(stu) == true){
-							team.add(partner);
+						if(team.contains(stu.getStudent()) == true && team.size() < groupSizes){
+							team.add(partner.getStudent());
 						}
 					}
 				}
