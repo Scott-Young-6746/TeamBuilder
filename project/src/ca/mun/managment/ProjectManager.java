@@ -1,3 +1,5 @@
+package ca.mun.managment;
+
 import java.util.List;
 import java.util.ArrayList;
 

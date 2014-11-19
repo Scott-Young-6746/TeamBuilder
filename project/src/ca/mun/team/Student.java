@@ -1,3 +1,5 @@
+package ca.mun.team;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.lang.Integer;

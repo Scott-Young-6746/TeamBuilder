@@ -1,5 +1,8 @@
+package ca.mun.team;
+
 import java.util.List;
 import java.util.ArrayList;
+import ca.mun.util.Schedule;
 
 public class ProjectMember{
     private String name;

@@ -1,8 +1,11 @@
+package ca.mun.managment;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.lang.Integer;
+import ca.mun.team.*;
 
 public class Project{
     private String name;
