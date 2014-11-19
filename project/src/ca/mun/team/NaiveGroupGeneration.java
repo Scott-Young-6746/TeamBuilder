@@ -5,7 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import ca.mun.util.StudentRelationGraph;
-
+/*
+ * This class is a group sorting method that ignores all preferences, does not include skill sets
+ * and is in general not very useful other than as a means to test the base code.
+ * It loops over all the students, adds them to a team if they are not in one yet, 
+ * then checks all people they can work with, who can also work together,
+ * and adds them to the team if they can.
+ */
 public class NaiveGroupGeneration implements GroupGeneration {
 	
 	@Override
@@ -18,8 +24,15 @@ public class NaiveGroupGeneration implements GroupGeneration {
 					cont = true;
 				}
 			}
-			if(cont){
-				continue;
+			if(!cont){
+				int count = 0;
+				while(true){
+					if(teams.get(count).size() < groupSizes){
+					    teams.get(count).add(stu.getStudent());
+					    break;
+					}
+					count++;
+				}
 			}
 			//Could I get all the people you can partner with in a list?
 			ArrayList<StudentRelationGraph> potentialPartners = stu.getPotentialPartners();
