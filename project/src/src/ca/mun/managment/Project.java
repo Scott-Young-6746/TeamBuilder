@@ -88,12 +88,21 @@ public class Project{
     }
     
     public void constructTeams(){
-        /** This will call out to a resolution strategy
-            that can be defined by the Project Manager
-            to build teams automatically, and then add
-            them to the team list. It will eventually
-            take in an argument, which will inform the
-            method which strategy to use. **/
+        GroupGeneration generator = new NaiveGroupGeneration();
+        ArrayList<StudentRelationGraph> graph = new ArrayList<StudentRelationGraph>();
+        for(ProjectMember member : listOfMembers){
+            StudentRelationGraph g = new StudentRelationGraph((Student)member);
+        }
+        for(StudentRelationGraph g : graph){
+            for(StudentRelationGraph s : graph){
+                if(s.equals(g)){
+                    continue;
+                }
+                s.addRelation(g);
+                g.addRelation(s);
+            }
+        }
+        return graph;
     }
     
     public void addTeam(int newTeamNumber){

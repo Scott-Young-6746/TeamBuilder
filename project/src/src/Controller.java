@@ -21,4 +21,8 @@ public class Controller {
 		groupSize = i;
 	}
 	
+    
+    public static ArrayList<Team> generateGroups(){
+        
+    }
 }
