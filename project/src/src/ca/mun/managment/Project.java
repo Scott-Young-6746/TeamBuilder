@@ -102,7 +102,7 @@ public class Project{
                 g.addRelation(s);
             }
         }
-        return graph;
+        listOfTeams = generator.generateGroups(sizeOfTeams, graph);
     }
     
     public void addTeam(int newTeamNumber){
