@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Team implements Collection<ProjectMember>{
+public class Team implements Collection{
     private int teamNumber;
     private List<ProjectMember> listOfTeamMembers;
     
@@ -114,6 +114,10 @@ public class Team implements Collection<ProjectMember>{
 		return listOfTeamMembers.toArray(arg0);
 	}
 
+	@Override
+	public boolean add(Object arg0) {
+		return listOfTeamMembers.add((ProjectMember) arg0);
+	}
 
 	
 }

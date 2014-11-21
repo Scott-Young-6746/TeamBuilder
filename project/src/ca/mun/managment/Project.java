@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.io.FileNotFoundException;
 import java.lang.Integer;
+
 import ca.mun.team.*;
 
 public class Project{
@@ -18,12 +20,13 @@ public class Project{
     private List<Team> listOfTeams;
     private List<String> selfEvaluationQuestions;
     
-    public Project(String name, int sizeOfTeams){
+    public Project(String name, int sizeOfTeams) throws FileNotFoundException{
         this.name = name;
         this.sizeOfTeams = sizeOfTeams;
         ProjectMemberPreferencesDeadline = new GregorianCalendar(2099,01,01);
-        
-        listOfMembers = new ArrayList<ProjectMember>();
+//        listOfMembers = new ArrayList<ProjectMember>();
+        StudentListGenerator slg = new StudentListGenerator(name); 
+        listOfMembers = slg.getList();
         forbiddenMembers = new ArrayList<String[]>();
         requiredMembers = new ArrayList<String[]>();
         listOfTeams = new ArrayList<Team>();
@@ -58,7 +61,7 @@ public class Project{
     }
     
     public void fetchNewProjectsMembersList(){
-        /** Will read in initial list of eligable members from a database or stream **/
+        /** Will read in initial list of eligible members from a database or stream **/
     }
     
     public List<ProjectMember> getListOfMembers(){
