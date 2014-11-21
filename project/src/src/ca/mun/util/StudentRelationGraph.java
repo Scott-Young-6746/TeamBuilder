@@ -2,6 +2,7 @@ package ca.mun.util;
 
 import java.util.ArrayList;
 
+import ca.mun.team.ProjectMember;
 import ca.mun.team.Student;
 
 public class StudentRelationGraph {
@@ -23,7 +24,10 @@ public class StudentRelationGraph {
 		}
 		return potentialPartners;
 	}
-	public Student getStudent(){
+	public ArrayList<StudentRelationEdge> getEdges(){
+		return edges;
+	}
+	public ProjectMember getStudent(){
 		return this.student;
 	}
 }
