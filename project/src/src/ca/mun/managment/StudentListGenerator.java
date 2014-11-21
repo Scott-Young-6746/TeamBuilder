@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import ca.mun.team.ProjectMember;
+import ca.mun.team.Student;
 
 public class StudentListGenerator {
 	
@@ -19,8 +20,9 @@ public class StudentListGenerator {
 
 		//loops through and creates member objects from the text input
 		while(input.hasNext()) {
-		    String nextLine = input.nextLine();
-		    members.add(new ProjectMember(nextLine));
+		    String line1 = input.nextLine();
+		    String line2 = input.nextLine();
+		    members.add(new Student(line1, line2));
 		    
 		}
 		input.close();

@@ -76,15 +76,14 @@ public class MainFrame extends JFrame {
 				
 				JLabel profNameText = new JLabel();
 				panel.add(profNameText);
-		
 	
 		//Buttons to start generating groups/importing class into JLabel
 		
+		//importing and displaying text from file (or database, if needed) 
 		JButton displayClassButton = new JButton("Load Class");
 		displayClassButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				
-				//importing and displaying text from file (or database, if needed) 
 				//checks if both class name and group size are filled in
 				if (classNameInput.getText().trim().length() == 0 || groupSizeInput.getText().trim().length() == 0) {
 					JOptionPane.showMessageDialog(getContentPane(), "Please enter values for both class name and group size.");
@@ -97,9 +96,12 @@ public class MainFrame extends JFrame {
 						int groupSize = Integer.parseInt(groupSizeInput.getText());
 						String classInput = textArea.getText();
 						Controller.setGroupSize(groupSize);		//sets the size of the groups
-						Controller.setString(classInput); //sets the name of the class
+						Controller.setString(classInput); //sets the String of students
+						Controller.setClassName(className); //sets the name of the class (ie. 3716)
 						
-						new Project(className, classInput, groupSize); }  
+						Controller.createProject(); //calls the controller to create a new project
+						
+						}  
 						catch(Exception e) {}
 						
 					JFileChooser chooser = new JFileChooser();
@@ -122,12 +124,13 @@ public class MainFrame extends JFrame {
 		});
 		
 		
+		//Button to generate optimal teams and output within the textArea
+		
 		JButton generateButton = new JButton("Generate Groups");
-		generateButton.addActionListener(new ActionListener() {
+		generateButton.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent event) {
 			}
 		});
-		
 		
 		
 		JPanel buttonPanel = new JPanel();
