@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -34,8 +35,11 @@ public class MainFrame extends JFrame {
 		//Create Swing Components
 		//Output for students/student groups
 		
+		
 		final JTextArea textArea = new JTextArea();
-		getContentPane().add(textArea, BorderLayout.CENTER);
+		 JScrollPane scrollPane = new JScrollPane(textArea);
+		 add(scrollPane, BorderLayout.CENTER);
+		
 		
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
@@ -138,7 +142,6 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(displayClassButton);
 		buttonPanel.add(generateButton);		
 		
-	
 	}
 	
 }
