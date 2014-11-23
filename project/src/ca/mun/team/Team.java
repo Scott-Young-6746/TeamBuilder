@@ -118,6 +118,15 @@ public class Team implements Collection{
 	public boolean add(Object arg0) {
 		return listOfTeamMembers.add((ProjectMember) arg0);
 	}
+	
+	public String getNumber() {
+		String str = Integer.toString(teamNumber);
+		return str;
+	}
+	
+	public List<ProjectMember> getListOfMembers() {
+		return listOfTeamMembers;
+	}
 
 	
 }

@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
+import ca.mun.team.*;
 import ca.mun.managment.Project;
 
 public class Controller {
@@ -7,15 +10,21 @@ public class Controller {
 	static String classInput;
 	static String className;
 	static int groupSize;
+	static Project project;
   
 	public static void main(String[] args) throws FileNotFoundException {
     	GUI userGui = new GUI();
-    	userGui.run();  
+    	userGui.run();
     }
  
 	public static void createProject() throws FileNotFoundException {
-		new Project(className, classInput, groupSize);
+		project = new Project(className, classInput, groupSize);
 	}
+	
+	public static List<Team> generateGroups(){
+        project.constructTeams();
+        return project.getTeams();
+    }
 	
 	//Set the static variable String (the String of all students' names and student numbers)
 	public static void setString(String str) {
@@ -30,5 +39,6 @@ public class Controller {
 	//Set the name of the class
 	public static void setClassName(String str) {
 		className = str;
-	}
+	}	
+	
 }

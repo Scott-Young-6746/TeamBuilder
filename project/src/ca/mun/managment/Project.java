@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.lang.Integer;
 
 import ca.mun.team.*;
+import ca.mun.util.StudentRelationGraph;
 
 public class Project{
     private String name;
@@ -20,12 +21,12 @@ public class Project{
     private List<Team> listOfTeams;
     private List<String> selfEvaluationQuestions;
     
-    public Project(String className, String name, int sizeOfTeams) throws FileNotFoundException{
+    public Project(String className, String classInput, int sizeOfTeams) throws FileNotFoundException{
         name = className;
         this.sizeOfTeams = sizeOfTeams;
         ProjectMemberPreferencesDeadline = new GregorianCalendar(2099,01,01);
 //        listOfMembers = new ArrayList<ProjectMember>();
-        StudentListGenerator slg = new StudentListGenerator(name); 
+        StudentListGenerator slg = new StudentListGenerator(classInput); 
         listOfMembers = slg.getList();
         forbiddenMembers = new ArrayList<String[]>();
         requiredMembers = new ArrayList<String[]>();
@@ -102,9 +103,9 @@ public class Project{
                 g.addRelation(s);
             }
         }
-        listOfTeams = generator.generateGroups(sizeOfTeams, graph);
+        listOfTeams = generator.generateGroups(sizeOfTeams, graph); //There's an error here? Cast it?
     }
-    
+  
     public void addTeam(int newTeamNumber){
         listOfTeams.add(new Team(newTeamNumber));
     }
@@ -115,5 +116,10 @@ public class Project{
     
     public void removeQuestion(int i){
         selfEvaluationQuestions.remove(i);
+    }
+    
+    public List<Team> getTeams() {
+		return listOfTeams;
+    	
     }
 }

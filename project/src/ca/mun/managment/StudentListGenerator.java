@@ -1,6 +1,5 @@
 package ca.mun.managment;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,7 @@ public class StudentListGenerator {
 	
 	public StudentListGenerator(String s) throws FileNotFoundException{
 	
+		
 		String classInput = s;
 		Scanner input = new Scanner(classInput);
 
@@ -23,7 +23,6 @@ public class StudentListGenerator {
 		    String line1 = input.nextLine();
 		    String line2 = input.nextLine();
 		    members.add(new Student(line1, line2));
-		    
 		}
 		input.close();
 	}
