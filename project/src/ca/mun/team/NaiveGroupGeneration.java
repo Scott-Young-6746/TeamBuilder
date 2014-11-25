@@ -30,7 +30,7 @@ public class NaiveGroupGeneration implements GroupGeneration {
 					}
 			ArrayList<StudentRelationEdge> potentialPartnerEdges = stu.getEdges();
 			int canWorkWith = 0;
-			for(ProjectMember student : team){  //There's an error here? 
+			for(ProjectMember student : team){
 				for(StudentRelationEdge edge : potentialPartnerEdges){
 					if(edge.contains(student)){
 						canWorkWith++;
