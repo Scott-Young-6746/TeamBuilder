@@ -152,28 +152,13 @@ public class MainFrame extends JFrame {
 					
 			//Parsing through the ArrayLists to output who is in each team
 			
-			//String i = Integer.toString(list.size());
-			//groupTextArea.setText(i);
+			ArrayList<ProjectMember> list1 = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
 			
-			ArrayList<ProjectMember> lol = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
+			groupTextArea.setText(""); //sets text space back to empty before filling with groups
 			
-			groupTextArea.setText("");
-			
-			for (ProjectMember temp : lol) {
+			for (ProjectMember temp : list1) {
 				groupTextArea.append(temp.getName() + "\n");
-			}
-			
-			
-			/*String s = "";
-			for (Team temp : list) {
-
-				groupTextArea.setText("HI!");
-				
-				
-				}	
-			*/
-			
-			
+				}
 			}
 		});
 		
