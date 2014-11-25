@@ -1,5 +1,6 @@
 package ca.mun.managment;
 
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +11,19 @@ import ca.mun.team.Student;
 
 public class StudentListGenerator {
 	
+	public static String profName;
+	
 	ArrayList<ProjectMember> members = new ArrayList<ProjectMember>();
 	
 	public StudentListGenerator(String s) throws FileNotFoundException{
-	
 		
 		String classInput = s;
 		Scanner input = new Scanner(classInput);
-
+		
+		profName = input.nextLine();
+		
 		//loops through and creates member objects from the text input
+		
 		while(input.hasNext()) {
 		    String line1 = input.nextLine();
 		    String line2 = input.nextLine();
@@ -26,6 +31,8 @@ public class StudentListGenerator {
 		}
 		input.close();
 	}
+	
+	
 	
 	
 	

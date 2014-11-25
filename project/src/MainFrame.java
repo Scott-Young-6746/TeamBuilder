@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.Panel;
 
 import javax.swing.JFileChooser;
@@ -13,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import ca.mun.managment.Project;
+import ca.mun.managment.StudentListGenerator;
 import ca.mun.team.ProjectMember;
 import ca.mun.team.Team;
 
@@ -21,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -89,7 +87,7 @@ public class MainFrame extends JFrame {
 		JLabel textArea3 = new JLabel("Prof Name: ");
 		panel.add(textArea3);
 				
-		JLabel profNameText = new JLabel();
+		final JLabel profNameText = new JLabel();
 		panel.add(profNameText);
 	
 		//Buttons to start generating groups/importing class into JLabel
@@ -131,11 +129,12 @@ public class MainFrame extends JFrame {
 					Controller.setGroupSize(groupSize);		//sets the size of the groups
 					Controller.setString(classInput); //sets the String of students
 					Controller.setClassName(className); //sets the name of the class (ie. 3716)
-					
 					Controller.createProject(); //calls the controller to create a new project
 					
 					}  
 					catch(Exception e) {}
+				
+				profNameText.setText(StudentListGenerator.profName);
 			}
 		});
 		
@@ -153,14 +152,28 @@ public class MainFrame extends JFrame {
 					
 			//Parsing through the ArrayLists to output who is in each team
 			
-			String s = "";
+			//String i = Integer.toString(list.size());
+			//groupTextArea.setText(i);
+			
+			ArrayList<ProjectMember> lol = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
+			
+			groupTextArea.setText("");
+			
+			for (ProjectMember temp : lol) {
+				groupTextArea.append(temp.getName() + "\n");
+			}
+			
+			
+			/*String s = "";
 			for (Team temp : list) {
-				s = s + "\n" + "Team Number: " + temp.getNumber();
-				for (ProjectMember mem : temp.getListOfMembers()) {
-					 s = s + mem.getName() + "\n";
-					}
+
+				groupTextArea.setText("HI!");
+				
+				
 				}	
-			groupTextArea.setText(s);
+			*/
+			
+			
 			}
 		});
 		
