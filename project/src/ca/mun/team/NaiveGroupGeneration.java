@@ -21,17 +21,24 @@ public class NaiveGroupGeneration implements GroupGeneration {
 	public Collection<Team> generateGroups(int groupSizes, Collection<StudentRelationGraph> students) {
 		List<Team> teams = new ArrayList<Team>();
 		double numberOfTeams = (double)students.size()/(double)groupSizes;
-		numberOfTeams = Math.ceil(numberOfTeams);
+		numberOfTeams = Math.floor(numberOfTeams);
 		for(int i=0; i<(int)numberOfTeams; i++){
 			
 			teams.add(new Team(i));
 			
 		}
 		int teamNum = 0;
-		for(StudentRelationGraph stu : students){
-			
+		int numLargerGroups = students.size() % groupSizes;
+		for(StudentRelationGraph stu : students){			
 			Team team = teams.get(teamNum);
-			if(team.size() == groupSizes){
+			if (numLargerGroups > 0) {
+				if(team.size() == groupSizes+1){
+					teamNum++;
+					team = teams.get(teamNum);
+					numLargerGroups--;
+				}	
+			}
+			else if(team.size() == groupSizes){
 				teamNum++;
 				team = teams.get(teamNum);
 			}
