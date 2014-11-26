@@ -6,21 +6,25 @@ Scott
 234234568
 Andrew
 200512345
-Emi
+Huey Freeman
 650793039
-Marge
+Obi-Wan
 409583094
-Homer
+Navi
 234732802
 Lisa
 203948904
-Bart
+Ganondorf
 238947985
 Maggie
 230948092
 Grandpa
 230940549
-Ned
+Gandalf
 209384902
+Dollohan
+234889892
+Lucifer
+876987987
 
 

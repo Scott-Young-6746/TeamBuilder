@@ -138,15 +138,19 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		
 		//Button to generate optimal teams and output within the groupTextArea
 		
 		JButton generateButton = new JButton("Generate Groups");
 		generateButton.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent event) {
 				
-			ArrayList<Team> list = new ArrayList<Team>();
+			if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
+				
+				JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class"); }
 			
+			else {
+				
+			ArrayList<Team> list = new ArrayList<Team>();
 			if (Controller.project != null ) { //checking if a project has been created already (has a class been loaded into the system?)
 				list = (ArrayList<Team>) Controller.generateGroups(); } //generate groups using this project and store them in an ArrayList
 			groupTextArea.setText("");
@@ -164,6 +168,8 @@ public class MainFrame extends JFrame {
 				}
 
 			}
+			
+		}
 		});
 		
 		
