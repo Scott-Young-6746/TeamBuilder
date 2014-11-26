@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Team implements Collection{
+@SuppressWarnings("hiding")
+public class Team<ProjectMember> implements Collection{
     private int teamNumber;
     private List<ProjectMember> listOfTeamMembers;
     
@@ -17,10 +18,6 @@ public class Team implements Collection{
 
 	public void add(int arg0, ProjectMember arg1) {
 		listOfTeamMembers.add(arg0, arg1);
-	}
-
-	public boolean add(ProjectMember arg0) {
-		return listOfTeamMembers.add(arg0);
 	}
 
 	public boolean addAll(Collection arg0) {

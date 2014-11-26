@@ -25,7 +25,7 @@ public class Project{
         name = className;
         this.sizeOfTeams = sizeOfTeams;
         ProjectMemberPreferencesDeadline = new GregorianCalendar(2099,01,01);
-//        listOfMembers = new ArrayList<ProjectMember>();
+        //listOfMembers = new ArrayList<ProjectMember>();
         StudentListGenerator slg = new StudentListGenerator(classInput); 
         listOfMembers = slg.getList();
         forbiddenMembers = new ArrayList<String[]>();
@@ -93,6 +93,7 @@ public class Project{
         ArrayList<StudentRelationGraph> graph = new ArrayList<StudentRelationGraph>();
         for(ProjectMember member : listOfMembers){
             StudentRelationGraph g = new StudentRelationGraph((Student)member);
+            graph.add(g);
         }
         for(StudentRelationGraph g : graph){
             for(StudentRelationGraph s : graph){
@@ -103,7 +104,8 @@ public class Project{
                 g.addRelation(s);
             }
         }
-        listOfTeams = generator.generateGroups(sizeOfTeams, graph); //There's an error here? Cast it?
+        listOfTeams = (List<Team>) generator.generateGroups(sizeOfTeams, graph);
+        
     }
   
     public void addTeam(int newTeamNumber){
@@ -120,6 +122,6 @@ public class Project{
     
     public List<Team> getTeams() {
 		return listOfTeams;
-    	
     }
+    
 }

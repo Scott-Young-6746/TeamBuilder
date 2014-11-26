@@ -149,16 +149,20 @@ public class MainFrame extends JFrame {
 			
 			if (Controller.project != null ) { //checking if a project has been created already (has a class been loaded into the system?)
 				list = (ArrayList<Team>) Controller.generateGroups(); } //generate groups using this project and store them in an ArrayList
-					
-			//Parsing through the ArrayLists to output who is in each team
+			groupTextArea.setText("");
+				
+			//printing all the students within the groups and displaying them in the groupTextArea
 			
-			ArrayList<ProjectMember> list1 = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
-			
-			groupTextArea.setText(""); //sets text space back to empty before filling with groups
-			
-			for (ProjectMember temp : list1) {
-				groupTextArea.append(temp.getName() + "\n");
+			for(Team t : list){
+					int i = Integer.parseInt(t.getNumber());
+					i = i+1;
+					groupTextArea.append("\n" + "Team: " + i + "\n");
+					for(Object m : t) {
+						ProjectMember mem = (ProjectMember)m;
+						groupTextArea.append(mem.getName() + "\n");
+					}
 				}
+
 			}
 		});
 		

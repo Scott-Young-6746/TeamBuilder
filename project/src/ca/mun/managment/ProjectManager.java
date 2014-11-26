@@ -20,10 +20,6 @@ public class ProjectManager{
         name = newName;
     }
     
-    //public void addProject(String name, int sizeOfTeams){
-    //    ManagedProjects.add(new Project(name, sizeOfTeams));
-    //}
-    
     public List<Project> getListOfProjects(){
         return ManagedProjects;
     }

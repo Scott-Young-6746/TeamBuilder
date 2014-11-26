@@ -20,6 +20,13 @@ public class NaiveGroupGeneration implements GroupGeneration {
 	@Override
 	public Collection<Team> generateGroups(int groupSizes, Collection<StudentRelationGraph> students) {
 		List<Team> teams = new ArrayList<Team>();
+		double numberOfTeams = (double)students.size()/(double)groupSizes;
+		numberOfTeams = Math.ceil(numberOfTeams);
+		for(int i=0; i<(int)numberOfTeams; i++){
+			
+			teams.add(new Team(i));
+			
+		}
 		int teamNum = 0;
 		for(StudentRelationGraph stu : students){
 			
@@ -27,12 +34,12 @@ public class NaiveGroupGeneration implements GroupGeneration {
 			if(team.size() == groupSizes){
 				teamNum++;
 				team = teams.get(teamNum);
-					}
+			}
 			ArrayList<StudentRelationEdge> potentialPartnerEdges = stu.getEdges();
 			int canWorkWith = 0;
-			for(ProjectMember student : team){
+			for(Object student : team){
 				for(StudentRelationEdge edge : potentialPartnerEdges){
-					if(edge.contains(student)){
+					if(edge.contains((ProjectMember)student)){
 						canWorkWith++;
 						break;
 					}
