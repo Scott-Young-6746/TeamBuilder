@@ -2,12 +2,16 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -31,6 +35,19 @@ public class MainFrame extends JFrame {
 		
 		getContentPane().setLayout(new BorderLayout());
 		
+		//Creating the panel for forcingStudents together
+		
+		final Panel forcePanel = new Panel();
+		GridLayout forceLayout = new GridLayout(4,4);
+		forcePanel.setLayout(forceLayout);
+		getContentPane().add(forcePanel, BorderLayout.EAST);
+		forcePanel.setVisible(false);
+		
+		//Adding components to the forcePanel
+		
+	
+		
+
 		//Creating the panel for student/group outputs (CENTER)
 		
 		Panel outputPanel = new Panel();
@@ -99,9 +116,16 @@ public class MainFrame extends JFrame {
 				
 				//checks if both class name and group size are filled in
 				if (classNameInput.getText().trim().length() == 0 || groupSizeInput.getText().trim().length() == 0) {
-					JOptionPane.showMessageDialog(getContentPane(), "Please enter values for both class name and group size.");
+					JOptionPane.showMessageDialog(getContentPane(), "Please enter values for both class name and group size."); }
 				
-				}
+				String a = groupSizeInput.getText();
+				
+				//checks if the group size is an actual numeric value. If not, students will not be generated
+				
+				if (isNumeric(a) != true) {
+					
+					JOptionPane.showMessageDialog(getContentPane(), "Please enter a numberic value for the specified group size."); }
+	
 				//if they are, set static variable and choose a file
 				else {
 						
@@ -135,6 +159,40 @@ public class MainFrame extends JFrame {
 					catch(Exception e) {}
 				
 				profNameText.setText(StudentListGenerator.profName);
+				
+				//here, we call to populate the forcePanel (since our project now has members within it)
+				
+				ArrayList<ProjectMember> list = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
+				
+				JLabel label1 = new JLabel("Student 1: ");
+				forcePanel.add(label1);
+				JComboBox combo1 = new JComboBox();
+				forcePanel.add(combo1);
+				JLabel label2 = new JLabel("Student 2: ");
+				forcePanel.add(label2);
+				JComboBox combo2 = new JComboBox();
+				forcePanel.add(combo2);
+				
+				JRadioButton forceTogether = new JRadioButton("Force together");
+				JRadioButton forceApart = new JRadioButton("Force apart");
+				
+				ButtonGroup group = new ButtonGroup();
+				group.add(forceTogether);
+				group.add(forceApart);
+				
+				forcePanel.add(forceTogether);
+				forcePanel.add(forceApart);
+				
+				JButton force = new JButton("Perform operation");
+				forcePanel.add(force);
+				
+				//populating the JComboBoxes (for student selection)
+				
+				for (int i = 0; i < list.size(); i++)
+				combo1.addItem(list.get(i).getName());
+				for (int i = 0; i < list.size(); i++)
+				combo2.addItem(list.get(i).getName());
+				
 			}
 		});
 		
@@ -146,7 +204,7 @@ public class MainFrame extends JFrame {
 				
 			if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
 				
-				JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class"); }
+				JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class."); }
 			
 			else {
 				
@@ -164,20 +222,65 @@ public class MainFrame extends JFrame {
 					for(Object m : t) {
 						ProjectMember mem = (ProjectMember)m;
 						groupTextArea.append(mem.getName() + "\n");
+						}
 					}
-				}
 
-			}
+				}
 			
-		}
+			}
 		});
 		
+		//Button to handle the forcing of groups by the professor
+		
+		final JButton forceStudentsButton = new JButton("Set forced groups");
+		forceStudentsButton.addActionListener(new ActionListener() {  
+			public void actionPerformed(ActionEvent event) {
+	
+			if (Controller.project == null) {
+				JOptionPane.showMessageDialog(getContentPane(), "Please load a class before you try to force groups.");
+			}
+				
+			else {
+			
+			if (forceStudentsButton.getText() == "Set forced groups") {
+				forcePanel.setVisible(true);
+				forceStudentsButton.setText("Close");
+			}
+			
+			else if (forceStudentsButton.getText() == "Close") {
+				forcePanel.setVisible(false);
+				forceStudentsButton.setText("Set forced groups");
+					}
+			
+				}
+			
+			}
+		});
+		
+		//Adding button panel (SOUTH)
 		
 		JPanel buttonPanel = new JPanel();
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.add(displayClassButton);
-		buttonPanel.add(generateButton);		
+		buttonPanel.add(generateButton);	
+		buttonPanel.add(forceStudentsButton);
+		
+		
 		
 	}
+	
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+	
 	
 }
