@@ -35,18 +35,19 @@ public class MainFrame extends JFrame {
 		
 		getContentPane().setLayout(new BorderLayout());
 		
-		//Creating the panel for forcingStudents together
+		//Creating the panel to be implemented to the south
+		
+		Panel southPanel = new Panel();
+		GridLayout southLayout = new GridLayout(2,0);
+		southPanel.setLayout(southLayout);
+		
+		//panel for forcing students together
 		
 		final Panel forcePanel = new Panel();
 		GridLayout forceLayout = new GridLayout(4,4);
 		forcePanel.setLayout(forceLayout);
-		getContentPane().add(forcePanel, BorderLayout.EAST);
 		forcePanel.setVisible(false);
-		
-		//Adding components to the forcePanel
-		
-	
-		
+		southPanel.add(forcePanel); //adding the forcePanel to the southPanel
 
 		//Creating the panel for student/group outputs (CENTER)
 		
@@ -81,7 +82,7 @@ public class MainFrame extends JFrame {
 		GridLayout panelLayout = new GridLayout(3,2);
 		panel.setLayout(panelLayout);
 			
-		//Adding components to the panel
+		//Adding components for the north panel
 				
 		//Class Name
 				
@@ -118,11 +119,11 @@ public class MainFrame extends JFrame {
 				if (classNameInput.getText().trim().length() == 0 || groupSizeInput.getText().trim().length() == 0) {
 					JOptionPane.showMessageDialog(getContentPane(), "Please enter values for both class name and group size."); }
 				
-				String a = groupSizeInput.getText();
+				String text = groupSizeInput.getText();
 				
 				//checks if the group size is an actual numeric value. If not, students will not be generated
 				
-				if (isNumeric(a) != true) {
+				if (isNumeric(text) != true) {
 					
 					JOptionPane.showMessageDialog(getContentPane(), "Please enter a numberic value for the specified group size."); }
 	
@@ -201,10 +202,12 @@ public class MainFrame extends JFrame {
 		JButton generateButton = new JButton("Generate Groups");
 		generateButton.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent event) {
+			
+			if(Controller.project == null) {
+			JOptionPane.showMessageDialog(getContentPane(), "Please enter a class before generating groups"); }
 				
-			if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
-				
-				JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class."); }
+			else if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
+			JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class."); }
 			
 			else {
 				
@@ -257,16 +260,16 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		//Adding button panel (SOUTH)
+		//Adding button panel to southPanel
 		
 		JPanel buttonPanel = new JPanel();
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.add(displayClassButton);
 		buttonPanel.add(generateButton);	
 		buttonPanel.add(forceStudentsButton);
 		
-		
-		
+		southPanel.add(buttonPanel);
+		getContentPane().add(southPanel, BorderLayout.SOUTH);
+
 	}
 	
 	public static boolean isNumeric(String str)  
@@ -281,6 +284,5 @@ public class MainFrame extends JFrame {
 	  }  
 	  return true;  
 	}
-	
 	
 }
