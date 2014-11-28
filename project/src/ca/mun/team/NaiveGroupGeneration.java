@@ -4,43 +4,64 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static java.lang.System.out;
+
 import ca.mun.util.StudentRelationGraph;
 import ca.mun.util.StudentRelationEdge;
 
 /*
- * This class is a group sorting method that ignores all preferences, does not include skill sets
- * and is in general not very useful other than as a means to test the base code.
+ * This class is a group sorting method that ignores all preferences, does not include skill sets.
  * It loops over all the students, adds them to a team if they are not in one yet, 
  * then checks all people they can work with, who can also work together,
  * and adds them to the team if they can.
+ * Students are evenly distributed amongst the teams and no team has more students than the group size designated by the Project Manager
  */
 
 public class NaiveGroupGeneration implements GroupGeneration {
 	
+	private double numberOfTeams;
+	private int numberOfStu;
+	private int numSmallerTeams = 0;
+	private int numLargerTeams = 0;
+	private int smallerTeamSize;
+	private int largerTeamSize;
+	private int stuInSmallerTeams;
+	
 	@Override
 	public Collection<Team> generateGroups(int groupSizes, Collection<StudentRelationGraph> students) {
 		List<Team> teams = new ArrayList<Team>();
-		double numberOfTeams = (double)students.size()/(double)groupSizes;
-		numberOfTeams = Math.floor(numberOfTeams);
+		numberOfTeams = (double)students.size()/(double)groupSizes;
+		numberOfTeams = Math.ceil(numberOfTeams);
 		for(int i=0; i<(int)numberOfTeams; i++){
-			
 			teams.add(new Team(i));
-			
 		}
+		
+		numberOfStu = students.size();
+		numLargerTeams = students.size()/groupSizes;
+		stuInSmallerTeams = students.size()%groupSizes;
+		largerTeamSize = groupSizes;
+		smallerTeamSize = groupSizes - 1;
+		if (stuInSmallerTeams != 0 && stuInSmallerTeams != smallerTeamSize) {
+			numSmallerTeams = 1;
+			calculateTeamSizes();
+		}
+		
 		int teamNum = 0;
-		int numLargerGroups = students.size() % groupSizes;
+		
 		for(StudentRelationGraph stu : students){			
 			Team team = teams.get(teamNum);
-			if (numLargerGroups > 0) {
-				if(team.size() == groupSizes+1){
+			if (numLargerTeams > 0) {
+				if(team.size() == largerTeamSize){
 					teamNum++;
 					team = teams.get(teamNum);
-					numLargerGroups--;
+					numLargerTeams--;
 				}	
 			}
-			else if(team.size() == groupSizes){
+			else if (numSmallerTeams > 0) {
+				if(team.size() == smallerTeamSize){
 				teamNum++;
 				team = teams.get(teamNum);
+				}
 			}
 			ArrayList<StudentRelationEdge> potentialPartnerEdges = stu.getEdges();
 			int canWorkWith = 0;
@@ -57,5 +78,29 @@ public class NaiveGroupGeneration implements GroupGeneration {
 			}
 		}
 		return teams;
+	}
+	
+	// Recursively determines the number of students in the teams for even distribution
+	private void calculateTeamSizes() {
+		stuInSmallerTeams += largerTeamSize;
+		numSmallerTeams++;
+		numLargerTeams--;
+		
+		if (stuInSmallerTeams%smallerTeamSize == 0) { return; }
+		if (numLargerTeams == 0) {
+			if ((stuInSmallerTeams%smallerTeamSize) == (smallerTeamSize-1)) { return; }
+			largerTeamSize = smallerTeamSize-1;
+			smallerTeamSize -= 2;
+			numLargerTeams = numberOfStu/largerTeamSize;
+			stuInSmallerTeams = numberOfStu%largerTeamSize;
+			if (stuInSmallerTeams == 0) {
+				numSmallerTeams = 0;
+				return;
+			}
+			else {
+				numSmallerTeams = 1;
+			}
+		}
+		calculateTeamSizes();
 	}
 }
