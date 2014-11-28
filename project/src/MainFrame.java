@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 		//Creating the panel to be implemented to the south
 		
 		Panel southPanel = new Panel();
-		GridLayout southLayout = new GridLayout(2,0);
+		BorderLayout southLayout = new BorderLayout();
 		southPanel.setLayout(southLayout);
 		
 		//panel for forcing students together
@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 		GridLayout forceLayout = new GridLayout(4,4);
 		forcePanel.setLayout(forceLayout);
 		forcePanel.setVisible(false);
-		southPanel.add(forcePanel); //adding the forcePanel to the southPanel
+		southPanel.add(forcePanel,BorderLayout.NORTH); //adding the forcePanel to the southPanel
 
 		//Creating the panel for student/group outputs (CENTER)
 		
@@ -267,7 +267,7 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(generateButton);	
 		buttonPanel.add(forceStudentsButton);
 		
-		southPanel.add(buttonPanel);
+		southPanel.add(buttonPanel, BorderLayout.SOUTH);
 		getContentPane().add(southPanel, BorderLayout.SOUTH);
 
 	}
