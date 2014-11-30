@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-@SuppressWarnings("hiding")
-public class Team<ProjectMember> implements Collection{
+public class Team implements Collection<ProjectMember>{
     private int teamNumber;
     private List<ProjectMember> listOfTeamMembers;
     
@@ -18,10 +17,6 @@ public class Team<ProjectMember> implements Collection{
 
 	public void add(int arg0, ProjectMember arg1) {
 		listOfTeamMembers.add(arg0, arg1);
-	}
-
-	public boolean addAll(Collection arg0) {
-		return listOfTeamMembers.addAll(arg0);
 	}
 
 	public boolean addAll(int arg0, Collection<? extends ProjectMember> arg1) {
@@ -36,7 +31,7 @@ public class Team<ProjectMember> implements Collection{
 		return listOfTeamMembers.contains(arg0);
 	}
 
-	public boolean containsAll(Collection arg0) {
+	public boolean containsAll(Collection<?> arg0) {
 		return listOfTeamMembers.containsAll(arg0);
 	}
 
@@ -84,11 +79,11 @@ public class Team<ProjectMember> implements Collection{
 		return listOfTeamMembers.remove(arg0);
 	}
 
-	public boolean removeAll(Collection arg0) {
+	public boolean removeAll(Collection<?> arg0) {
 		return listOfTeamMembers.removeAll(arg0);
 	}
 
-	public boolean retainAll(Collection arg0) {
+	public boolean retainAll(Collection<?> arg0) {
 		return listOfTeamMembers.retainAll(arg0);
 	}
 
@@ -107,13 +102,9 @@ public class Team<ProjectMember> implements Collection{
 	public Object[] toArray() {
 		return listOfTeamMembers.toArray();
 	}
+	@SuppressWarnings("unchecked")
 	public  Object[] toArray(Object[] arg0) {
 		return listOfTeamMembers.toArray(arg0);
-	}
-
-	@Override
-	public boolean add(Object arg0) {
-		return listOfTeamMembers.add((ProjectMember) arg0);
 	}
 	
 	public String getNumber() {
@@ -123,6 +114,18 @@ public class Team<ProjectMember> implements Collection{
 	
 	public List<ProjectMember> getListOfMembers() {
 		return listOfTeamMembers;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends ProjectMember> arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean add(ProjectMember e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	

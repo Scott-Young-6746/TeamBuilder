@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static java.lang.System.out;
-
 import ca.mun.util.StudentRelationGraph;
 import ca.mun.util.StudentRelationEdge;
 

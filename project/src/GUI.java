@@ -3,6 +3,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 
+@SuppressWarnings("unused")
 public class GUI {
 	
 	//Constructor for GUI

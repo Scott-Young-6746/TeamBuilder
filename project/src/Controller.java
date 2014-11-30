@@ -5,6 +5,7 @@ import java.util.List;
 import ca.mun.team.*;
 import ca.mun.managment.Project;
 
+@SuppressWarnings("unused")
 public class Controller {
 
 	static String classInput;
