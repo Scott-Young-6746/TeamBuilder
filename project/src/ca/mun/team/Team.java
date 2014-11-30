@@ -118,14 +118,12 @@ public class Team implements Collection<ProjectMember>{
 
 	@Override
 	public boolean addAll(Collection<? extends ProjectMember> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return listOfTeamMembers.addAll(arg0);
 	}
 
 	@Override
 	public boolean add(ProjectMember e) {
-		// TODO Auto-generated method stub
-		return false;
+		return listOfTeamMembers.add(e);
 	}
 
 	

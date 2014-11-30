@@ -105,7 +105,11 @@ public class Project{
             }
         }
         listOfTeams = (List<Team>) generator.generateGroups(sizeOfTeams, graph);
-        
+        for(Team t : listOfTeams){
+        	for(ProjectMember m : t){
+        		System.out.println(m.getName());
+        	}
+        }
     }
   
     public void addTeam(int newTeamNumber){
