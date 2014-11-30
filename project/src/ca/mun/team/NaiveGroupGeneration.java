@@ -30,7 +30,6 @@ public class NaiveGroupGeneration implements GroupGeneration {
 		List<Team> teams = new ArrayList<Team>();
 		numberOfTeams = (double)students.size()/(double)groupSizes;
 		numberOfTeams = Math.ceil(numberOfTeams);
-		System.out.println(numberOfTeams);
 		for(int i=0; i<(int)numberOfTeams; i++){
 			teams.add(new Team(i));
 		}
@@ -46,11 +45,6 @@ public class NaiveGroupGeneration implements GroupGeneration {
 		}
 		
 		int teamNum = 0;
-		System.out.println("numberOfStu: " + numberOfStu);
-		System.out.println("numLargerTeams: " + numLargerTeams);
-		System.out.println("stuInSmallerTeams: " + stuInSmallerTeams);
-		System.out.println("largerTeamSize: " + largerTeamSize);
-		System.out.println("smallerTeamSize: " + smallerTeamSize);
 		for(StudentRelationGraph stu : students){			
 			Team team = teams.get(teamNum);
 			if (numLargerTeams > 0) {
@@ -69,11 +63,8 @@ public class NaiveGroupGeneration implements GroupGeneration {
 			}
 			ArrayList<StudentRelationEdge> potentialPartnerEdges = stu.getEdges();
 			int canWorkWith = 0;
-			System.out.println("canWorkWith: " + canWorkWith);
-			System.out.println("team size: " + team.size());
 			for(Object student : team){
 				Student s = (Student)student;
-				System.out.println(s.getName());
 				for(StudentRelationEdge edge : potentialPartnerEdges){
 					if(edge.contains(s)){
 						canWorkWith++;
@@ -82,7 +73,6 @@ public class NaiveGroupGeneration implements GroupGeneration {
 				}
 			}
 			if(canWorkWith == team.size()){
-				System.out.println("adding student");
 				team.add(stu.getStudent());
 			}
 		}
