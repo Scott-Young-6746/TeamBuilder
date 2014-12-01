@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
 				
 		//Group Size
 				
-		JLabel textArea2 = new JLabel("Group Size: ");
+		final JLabel textArea2 = new JLabel("Group Size: ");
 		panel.add(textArea2);
 				
 		final JTextField groupSizeInput = new JTextField();
@@ -165,59 +165,81 @@ public class MainFrame extends JFrame {
 				
 				//here, we call to populate the forcePanel (since our project now has members within it)
 				
-				ArrayList<ProjectMember> list = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
-				
-				JLabel label1 = new JLabel("Student 1: ");
-				forcePanel.add(label1);
-				JComboBox combo1 = new JComboBox();
-				forcePanel.add(combo1);
-				JLabel label2 = new JLabel("Student 2: ");
-				forcePanel.add(label2);
-				JComboBox combo2 = new JComboBox();
-				forcePanel.add(combo2);
-				
-				JRadioButton forceTogether = new JRadioButton("Force together");
-				JRadioButton forceApart = new JRadioButton("Force apart");
-				
-				ButtonGroup group = new ButtonGroup();
-				group.add(forceTogether);
-				group.add(forceApart);
-				
-				forcePanel.add(forceTogether);
-				forcePanel.add(forceApart);
-				
-				JButton force = new JButton("Perform operation");
-				forcePanel.add(force);
-				
-				//populating the JComboBoxes (for student selection)
-				
-				for (int i = 0; i < list.size(); i++)
-				combo1.addItem(list.get(i).getName());
-				for (int i = 0; i < list.size(); i++)
-				combo2.addItem(list.get(i).getName());
+//				ArrayList<ProjectMember> list = (ArrayList<ProjectMember>) Controller.project.getListOfMembers();
+//				
+//				JLabel label1 = new JLabel("Student 1: ");
+//				forcePanel.add(label1);
+//				JComboBox combo1 = new JComboBox();
+//				forcePanel.add(combo1);
+//				JLabel label2 = new JLabel("Student 2: ");
+//				forcePanel.add(label2);
+//				JComboBox combo2 = new JComboBox();
+//				forcePanel.add(combo2);
+//				
+//				JRadioButton forceTogether = new JRadioButton("Force together");
+//				JRadioButton forceApart = new JRadioButton("Force apart");
+//				
+//				ButtonGroup group = new ButtonGroup();
+//				group.add(forceTogether);
+//				group.add(forceApart);
+//				
+//				forcePanel.add(forceTogether);
+//				forcePanel.add(forceApart);
+//				
+//				JButton force = new JButton("Perform operation");
+//				forcePanel.add(force);
+//				
+//				//populating the JComboBoxes (for student selection)
+//				
+//				for (int i = 0; i < list.size(); i++)
+//				combo1.addItem(list.get(i).getName());
+//				for (int i = 0; i < list.size(); i++)
+//				combo2.addItem(list.get(i).getName());
 				
 			}
 		});
+		
+		JButton preferenceButton = new JButton("Set Preferences");
+		preferenceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			if (Controller.project != null) {
+			preferenceWindow pref = new preferenceWindow();
+				}
+			else {
+				JOptionPane.showMessageDialog(getContentPane(), "Please import a class"); 
+				}
+			}
+		});
+		
 		
 		//Button to generate optimal teams and output within the groupTextArea
 		
 		JButton generateButton = new JButton("Generate Groups");
 		generateButton.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent event) {
-			
+				
 			if(Controller.project == null) {
 			JOptionPane.showMessageDialog(getContentPane(), "Please enter a class before generating groups"); }
 				
 			else if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
-			JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class."); }
+			JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class"); }
 			
-			else {
+			else {	
+			try {
+			if (isNumeric(groupSizeInput.getText()) != true) {
+					
+			JOptionPane.showMessageDialog(getContentPane(), "Please enter a numberic value for the specified group size."); }
+					
+			int size = Integer.parseInt(groupSizeInput.getText());
+			
+			Controller.project.setSizeOfTeams(size); //checks to see if the group size has been altered
 				
 			ArrayList<Team> list = new ArrayList<Team>();
 			if (Controller.project != null ) { //checking if a project has been created already (has a class been loaded into the system?)
 				list = (ArrayList<Team>) Controller.generateGroups(); } //generate groups using this project and store them in an ArrayList
 			groupTextArea.setText("");
-				
+			
 			//printing all the students within the groups and displaying them in the groupTextArea
 			
 			for(Team t : list){
@@ -229,7 +251,8 @@ public class MainFrame extends JFrame {
 						groupTextArea.append(mem.getName() + "\n");
 						}
 					}
-
+				} 
+			        catch(Exception e) {}
 				}
 			
 			}
@@ -237,37 +260,40 @@ public class MainFrame extends JFrame {
 		
 		//Button to handle the forcing of groups by the professor
 		
-		final JButton forceStudentsButton = new JButton("Set forced groups");
-		forceStudentsButton.addActionListener(new ActionListener() {  
-			public void actionPerformed(ActionEvent event) {
-	
-			if (Controller.project == null) {
-				JOptionPane.showMessageDialog(getContentPane(), "Please load a class before you try to force groups.");
-			}
-				
-			else {
-			
-			if (forceStudentsButton.getText() == "Set forced groups") {
-				forcePanel.setVisible(true);
-				forceStudentsButton.setText("Close");
-			}
-			
-			else if (forceStudentsButton.getText() == "Close") {
-				forcePanel.setVisible(false);
-				forceStudentsButton.setText("Set forced groups");
-					}
-			
-				}
-			
-			}
-		});
+//		final JButton forceStudentsButton = new JButton("Set forced groups");
+//		forceStudentsButton.addActionListener(new ActionListener() {  
+//			public void actionPerformed(ActionEvent event) {
+//	
+//			if (Controller.project == null) {
+//				JOptionPane.showMessageDialog(getContentPane(), "Please load a class before you try to force groups.");
+//			}
+//				
+//			else {
+//			
+//			if (forceStudentsButton.getText() == "Set forced groups") {
+//				forcePanel.setVisible(true);
+//				forceStudentsButton.setText("Close");
+//			}
+//			
+//			else if (forceStudentsButton.getText() == "Close") {
+//				forcePanel.setVisible(false);
+//				forceStudentsButton.setText("Set forced groups");
+//					}
+//			
+//				}
+//			
+//			}
+//			
+//			
+//		});
 		
 		//Adding button panel to southPanel
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(displayClassButton);
 		buttonPanel.add(generateButton);	
-		buttonPanel.add(forceStudentsButton);
+		buttonPanel.add(preferenceButton);
+		//buttonPanel.add(forceStudentsButton);
 		
 		southPanel.add(buttonPanel, BorderLayout.SOUTH);
 		getContentPane().add(southPanel, BorderLayout.SOUTH);
