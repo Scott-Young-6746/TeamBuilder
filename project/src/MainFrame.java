@@ -204,7 +204,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				
 			if (Controller.project != null) {
-			preferenceWindow pref = new preferenceWindow();
+			preferenceWindow pref = new preferenceWindow(Controller.project.getListOfMembers());
 				}
 			else {
 				JOptionPane.showMessageDialog(getContentPane(), "Please import a class"); 
@@ -219,40 +219,46 @@ public class MainFrame extends JFrame {
 		generateButton.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent event) {
 				
-			if(Controller.project == null) {
-			JOptionPane.showMessageDialog(getContentPane(), "Please enter a class before generating groups"); }
+				if(Controller.project == null) {
+					JOptionPane.showMessageDialog(getContentPane(), "Please enter a class before generating groups");
+				}
 				
-			else if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
-			JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class"); }
+				else if(Controller.project.getListOfMembers().size() < Controller.project.getSizeOfTeams()) {
+					JOptionPane.showMessageDialog(getContentPane(), "Please enter a smaller group size and reload the class");
+				}
 			
-			else {	
-			try {
-			if (isNumeric(groupSizeInput.getText()) != true) {
-					
-			JOptionPane.showMessageDialog(getContentPane(), "Please enter a numberic value for the specified group size."); }
-					
-			int size = Integer.parseInt(groupSizeInput.getText());
-			
-			Controller.project.setSizeOfTeams(size); //checks to see if the group size has been altered
-				
-			ArrayList<Team> list = new ArrayList<Team>();
-			if (Controller.project != null ) { //checking if a project has been created already (has a class been loaded into the system?)
-				list = (ArrayList<Team>) Controller.generateGroups(); } //generate groups using this project and store them in an ArrayList
-			groupTextArea.setText("");
-			
-			//printing all the students within the groups and displaying them in the groupTextArea
-			
-			for(Team t : list){
-					int i = Integer.parseInt(t.getNumber());
-					i = i+1;
-					groupTextArea.append("\n" + "Team: " + i + "\n");
-					for(Object m : t) {
-						ProjectMember mem = (ProjectMember)m;
-						groupTextArea.append(mem.getName() + "\n");
+				else {	
+					try {
+						if (isNumeric(groupSizeInput.getText()) != true) {
+							JOptionPane.showMessageDialog(getContentPane(), "Please enter a numberic value for the specified group size.");
 						}
-					}
-				} 
-			        catch(Exception e) {}
+					
+						int size = Integer.parseInt(groupSizeInput.getText());
+			
+						Controller.project.setSizeOfTeams(size); //checks to see if the group size has been altered
+				
+						ArrayList<Team> list = new ArrayList<Team>();
+					
+						//checking if a project has been created already (has a class been loaded into the system?)
+						if (Controller.project != null ) { 
+							list = (ArrayList<Team>) Controller.generateGroups();
+						}
+					
+						//generate groups using this project and store them in an ArrayList
+						groupTextArea.setText("");
+			
+						//printing all the students within the groups and displaying them in the groupTextArea
+						for(Team t : list) {
+							int i = Integer.parseInt(t.getNumber());
+							i = i+1;
+							groupTextArea.append("\n" + "Team: " + i + "\n");
+							for(Object m : t) {
+								ProjectMember mem = (ProjectMember)m;
+								groupTextArea.append(mem.getName() + "\n");
+							}
+						}
+					} 
+					catch(Exception e) {}
 				}
 			
 			}
