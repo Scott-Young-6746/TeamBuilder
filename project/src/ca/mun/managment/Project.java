@@ -16,8 +16,8 @@ public class Project{
     private Calendar ProjectMemberPreferencesDeadline;
     
     private List<ProjectMember> listOfMembers;
-    private List<String[]> forbiddenMembers;
-    private List<String[]> requiredMembers;
+    private List<List<ProjectMember>> forbiddenMembers;
+    private List<List<ProjectMember>> requiredMembers;
     private List<Team> listOfTeams;
     private List<String> selfEvaluationQuestions;
     
@@ -28,8 +28,8 @@ public class Project{
         //listOfMembers = new ArrayList<ProjectMember>();
         StudentListGenerator slg = new StudentListGenerator(classInput); 
         listOfMembers = slg.getList();
-        forbiddenMembers = new ArrayList<String[]>();
-        requiredMembers = new ArrayList<String[]>();
+        forbiddenMembers = new ArrayList<List<ProjectMember>>();
+        requiredMembers = new ArrayList<List<ProjectMember>>();
         listOfTeams = new ArrayList<Team>();
         selfEvaluationQuestions = new ArrayList<String>();
     }
@@ -78,7 +78,7 @@ public class Project{
         }
     }
     
-    public void addForbiddenMembers(String name1, String name2){
+/*    public void addForbiddenMembers(String name1, String name2){
         String[] n = {name1, name2};
         forbiddenMembers.add(n);
     }
@@ -86,6 +86,15 @@ public class Project{
     public void addRequiredMembers(String name1, String name2){
         String[] n = {name1, name2};
         requiredMembers.add(n);
+    }
+*/
+    
+    public void addForbiddenMembers(List<ProjectMember> list) {
+    	forbiddenMembers.add(list);
+    }
+    
+    public void addRequiredMembers(List<ProjectMember> list) {
+    	requiredMembers.add(list);
     }
     
     public void constructTeams(){
