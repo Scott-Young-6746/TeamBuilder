@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import ca.mun.managment.StudentListGenerator;
 import ca.mun.team.ProjectMember;
@@ -52,7 +53,8 @@ public class MainFrame extends JFrame {
 
 		//Creating the panel for student/group outputs (CENTER)
 		
-		Panel outputPanel = new Panel();
+		JPanel outputPanel = new JPanel();
+		outputPanel.setBorder(new EmptyBorder(5, 5, 0, 5));
 		GridLayout outputLayout = new GridLayout(0,2);
 		outputPanel.setLayout(outputLayout);
 
@@ -79,6 +81,7 @@ public class MainFrame extends JFrame {
 		//Creating the Panel (NORTH)
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 0, 5));
 		getContentPane().add(panel, BorderLayout.NORTH);
 		GridLayout panelLayout = new GridLayout(3,2);
 		panel.setLayout(panelLayout);

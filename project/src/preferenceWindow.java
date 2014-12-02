@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,14 +11,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
+import static java.lang.System.out;
 import ca.mun.team.ProjectMember;
+import ca.mun.team.Student;
 
 public class preferenceWindow extends JFrame {
 
 	JFrame preferenceWindow = new JFrame("Preference Window");
-	ArrayList<ProjectMember> selection = new ArrayList<ProjectMember>();
-	ArrayList<Node> display = new ArrayList<Node>();
+	ArrayList<ProjectMember> selection;
+	ArrayList<Node> display;
+	JPanel checkPanel;
 
 	class Node
 	   {  
@@ -40,21 +46,27 @@ public class preferenceWindow extends JFrame {
 			n.box = new JCheckBox(m.getName());
 			display.add(n);
 		}
+		checkPanel.setLayout(new GridLayout(display.size(), 1));
 		printList();
 	}
 	
 	private void createWindow() {
 		preferenceWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		preferenceWindow.setSize(160, 500);
-		preferenceWindow.setLocation(540, 40);
+		preferenceWindow.setSize(200, 500);
+		preferenceWindow.setLocation(560, 60);
 		
 		preferenceWindow.setLayout(new BorderLayout());
 		
-		getContentPane().setLayout(new BorderLayout());
+		// Adding panel to display check boxes
+		checkPanel = new JPanel();
+		JScrollPane scrollPane = new JScrollPane(checkPanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		preferenceWindow.add(scrollPane, BorderLayout.CENTER);
 		
 		//Adding buttons to the SOUTH
 		
 		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new BorderLayout());
 		
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
@@ -67,17 +79,17 @@ public class preferenceWindow extends JFrame {
 		
 		southPanel.add(performButton, BorderLayout.NORTH);
 		southPanel.add(doneButton, BorderLayout.SOUTH);
-		getContentPane().add(southPanel, BorderLayout.SOUTH);
+		preferenceWindow.add(southPanel, BorderLayout.SOUTH);
 		preferenceWindow.setVisible(true);
+		
+		selection = new ArrayList<ProjectMember>();
+		display = new ArrayList<Node>();
 	}
 	
 	private void printList() {
-		JPanel p = new JPanel();
-		JCheckBox cb = new JCheckBox();
 		for (Node n : display) {
-			p.add(n.box);		
+			checkPanel.add(n.box);		
 		}
-		preferenceWindow.add(p);
 	}
-	
+
 }
