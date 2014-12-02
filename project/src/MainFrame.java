@@ -114,7 +114,7 @@ public class MainFrame extends JFrame {
 		//importing and displaying text from file (or database, if needed) 
 		JButton displayClassButton = new JButton("Load Class");
 		displayClassButton.addActionListener(new ActionListener() {
-			@SuppressWarnings({ "rawtypes", "unchecked" })
+			
 			public void actionPerformed(ActionEvent event) {
 				
 				//checks if both class name and group size are filled in
