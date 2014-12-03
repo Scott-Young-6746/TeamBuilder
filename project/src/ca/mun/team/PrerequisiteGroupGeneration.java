@@ -81,6 +81,7 @@ public class PrerequisiteGroupGeneration implements GroupGeneration{
 			}
 			else{
 				for(Team altTeam : teams){
+					canWorkWith = 0;
 					if(altTeam == team){
 						continue;
 					}
@@ -95,6 +96,7 @@ public class PrerequisiteGroupGeneration implements GroupGeneration{
 					}
 					if(canWorkWith == altTeam.size() && altTeam.size() < groupSizes){
 						altTeam.add(stu.getStudent());
+						break;
 					}
 				}
 				
