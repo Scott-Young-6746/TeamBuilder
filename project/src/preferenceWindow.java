@@ -77,7 +77,7 @@ public class preferenceWindow extends JFrame {
 			}
 		});
 
-		JButton performButton = new JButton("Perform Operation");
+		JButton performButton = new JButton("Save Preferences");
 		performButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				addPreferences();
@@ -129,14 +129,23 @@ public class preferenceWindow extends JFrame {
 		else {
 			if (radioReq.isSelected()) {
 				Controller.project.addRequiredMembers(selection);
+				clearSelection();
 			}
 			else if (radioForbid.isSelected()) {
 				Controller.project.addForbiddenMembers(selection);
+				clearSelection();
 			}
 			else {
 				JOptionPane.showMessageDialog(getContentPane(), "Please indicate whether or not these members either have to or can not work together.");
 			}
 		}	
+	}
+	
+	private void clearSelection() {
+		JOptionPane.showMessageDialog(getContentPane(), "Preferences successfully saved.");
+		for (Node n : display) {
+			n.box.setSelected(false);
+		}
 	}
 
 }
