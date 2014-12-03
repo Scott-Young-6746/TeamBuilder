@@ -1,0 +1,9 @@
+HOW TO RUN
+
+1. Using a terminal, navigate to the “project/scr/” directory. This should be located where it was saved.
+
+2. Make sure all java files are compiled in “project/src/ca/mun/*“ and that all java files in “project/src/“ are also compiled.
+
+3. Type into the terminal “java Controller” to run the program
+
+4. A test file is located in the root folder of the repository
