@@ -98,19 +98,66 @@ public class Project{
     }
     
     public void constructTeams(){
-        GroupGeneration generator = new NaiveGroupGeneration();
+        GroupGeneration generator = new PrerequisiteGroupGeneration(sizeOfTeams, listOfMembers.size());
         ArrayList<StudentRelationGraph> graph = new ArrayList<StudentRelationGraph>();
+        for(List<ProjectMember> team1 : requiredMembers){
+        	for(List<ProjectMember> team2 : requiredMembers){
+        		if(team1 == team2){
+        			continue;
+        		}
+        		for(ProjectMember m1 : team1){
+        			if(team2.contains(m1)){
+        				team1.addAll(team2);
+        				requiredMembers.remove(team2);
+        			}
+        		}
+        	}
+        }
+        for(List<ProjectMember> team : requiredMembers){
+        	for(ProjectMember m : team){
+        		System.out.println(m.getName());
+        	}
+        }
         for(ProjectMember member : listOfMembers){
-            StudentRelationGraph g = new StudentRelationGraph((Student)member);
-            graph.add(g);
+        	boolean teamed = false;
+        	for(List<ProjectMember> t : requiredMembers){
+        		if(t.contains(member)){
+        			teamed = true;
+        		}
+        	}
+        	if(!teamed){
+        		StudentRelationGraph g = new StudentRelationGraph((Student)member);
+                graph.add(g);
+        	}
+            
+        }
+        for(List<ProjectMember> t : requiredMembers){
+        	ArrayList<StudentRelationGraph> team = new ArrayList<StudentRelationGraph>();
+        	for(ProjectMember member : t){
+        		StudentRelationGraph g = new StudentRelationGraph((Student)member);
+                team.add(g);
+                graph.add(g);
+        	}
+        	generator.forceGrouping(sizeOfTeams, team);
         }
         for(StudentRelationGraph g : graph){
             for(StudentRelationGraph s : graph){
                 if(s.equals(g)){
                     continue;
                 }
-                s.addRelation(g);
-                g.addRelation(s);
+                boolean canWork = true;
+                for(List<ProjectMember> ban : forbiddenMembers){
+                	if(ban.contains(g.getStudent())){
+                		if(ban.contains(s.getStudent())){
+                			canWork = false;
+                			break;
+                		}
+                	}
+                }
+                if(canWork){
+                	s.addRelation(g);
+                	g.addRelation(s);
+                }
             }
         }
         listOfTeams = (List<Team>) generator.generateGroups(sizeOfTeams, graph);

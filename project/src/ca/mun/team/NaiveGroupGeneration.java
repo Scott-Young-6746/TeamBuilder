@@ -102,4 +102,11 @@ public class NaiveGroupGeneration implements GroupGeneration {
 		}
 		calculateTeamSizes();
 	}
+
+	@Override
+	public void forceGrouping(int groupSizes,
+			Collection<StudentRelationGraph> students) {
+		// TODO Auto-generated method stub
+		return;
+	}
 }

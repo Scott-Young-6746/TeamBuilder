@@ -15,9 +15,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import static java.lang.System.out;
 import ca.mun.team.ProjectMember;
 
+@SuppressWarnings("serial")
 public class preferenceWindow extends JFrame {
 
 	JFrame preferenceWindow = new JFrame("Preference Window");

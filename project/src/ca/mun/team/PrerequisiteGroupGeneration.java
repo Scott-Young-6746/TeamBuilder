@@ -40,7 +40,16 @@ public class PrerequisiteGroupGeneration implements GroupGeneration{
 	@Override
 	public Collection<Team> generateGroups(int groupSizes, Collection<StudentRelationGraph> students) {
 		int teamNum = 0;
-		for(StudentRelationGraph stu : students){			
+		for(StudentRelationGraph stu : students){
+			boolean cont = false;
+			for(Team team : teams){
+				if(team.contains(stu.getStudent())){
+					cont = true;
+				}
+			}
+			if(cont){
+				continue;
+			}
 			Team team = teams.get(teamNum);
 			if (numLargerTeams > 0) {
 				if(team.size() == largerTeamSize){
@@ -69,6 +78,26 @@ public class PrerequisiteGroupGeneration implements GroupGeneration{
 			}
 			if(canWorkWith == team.size()){
 				team.add(stu.getStudent());
+			}
+			else{
+				for(Team altTeam : teams){
+					if(altTeam == team){
+						continue;
+					}
+					for(Object student : altTeam){
+						Student s = (Student)student;
+						for(StudentRelationEdge edge : potentialPartnerEdges){
+							if(edge.contains(s)){
+								canWorkWith++;
+								break;
+							}
+						}
+					}
+					if(canWorkWith == altTeam.size() && altTeam.size() < groupSizes){
+						altTeam.add(stu.getStudent());
+					}
+				}
+				
 			}
 		}
 		return teams;
@@ -125,6 +154,7 @@ public class PrerequisiteGroupGeneration implements GroupGeneration{
 					for(StudentRelationGraph stu : students){
 						t.add(stu.getStudent());
 					}
+					return;
 				}
 			}
 		}
