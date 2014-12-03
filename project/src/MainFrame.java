@@ -268,8 +268,7 @@ public class MainFrame extends JFrame {
 					//printing the created groups into a text file on the desktop
 					BufferedWriter writer = null;
 				    try {
-	
-				    	writer = new BufferedWriter(new FileWriter(System.getProperty("user.home")+"/Desktop/Generated_Groups.txt"));
+				    	writer = new BufferedWriter(new FileWriter(System.getProperty("user.home")+"/Desktop/"+Controller.project.getName()+"_"+"Generated_Groups.txt"));
 				        writer.write(groupTextArea.getText());
 				    } catch (IOException e) {
 				        System.err.println(e);
@@ -280,7 +279,7 @@ public class MainFrame extends JFrame {
 				            } catch (IOException e) {
 				                System.err.println(e);
 				            }            
-				            JOptionPane.showMessageDialog(getContentPane(), "Text file of generated groups have been saved to your desktop under the name 'Generated_Groups.txt'");
+				            JOptionPane.showMessageDialog(getContentPane(), "Text file of generated groups have been saved to your desktop under the name '"+Controller.project.getName()+"_"+"Generated_Groups.txt'");
 				        }
 				    }
 					
