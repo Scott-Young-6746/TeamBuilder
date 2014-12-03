@@ -1,5 +1,13 @@
 HOW TO RUN
 
+
+Option 1:
+
+There is a .jar file located under the ‘TeamBuilder’ folder. This should allow you to run the program by double-clicking on GroupGenerator.jar
+
+
+Option 2:
+
 1. Using a terminal, navigate to the “project/scr/” directory. This should be located where it was saved.
 
 2. Make sure all java files are compiled in “project/src/ca/mun/*“ and that all java files in “project/src/“ are also compiled.
