@@ -97,6 +97,12 @@ public class Project{
     	requiredMembers.add(list);
     }
     
+    public void clearMemberPreferences() {
+    	forbiddenMembers = new ArrayList<List<ProjectMember>>();
+        requiredMembers = new ArrayList<List<ProjectMember>>();
+        System.out.println("Preferences cleared.");
+    }
+    
     public void constructTeams(){
         GroupGeneration generator = new PrerequisiteGroupGeneration(sizeOfTeams, listOfMembers.size());
         ArrayList<StudentRelationGraph> graph = new ArrayList<StudentRelationGraph>();

@@ -279,8 +279,7 @@ public class MainFrame extends JFrame {
 				            } catch (IOException e) {
 				                System.err.println(e);
 				            }            
-				            JOptionPane.showMessageDialog(getContentPane(), "Text file of generated groups have been saved to your desktop under the name '"+Controller.project.getName()+"_"+"Generated_Groups.txt'");
-				        }
+				            JOptionPane.showMessageDialog(getContentPane(), "Text file of generated groups have been saved to your desktop under the name '"+Controller.project.getName()+"_"+"Generated_Groups.txt'");				        }
 				    }
 					
 					

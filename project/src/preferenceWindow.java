@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,6 +85,19 @@ public class preferenceWindow extends JFrame {
 			}
 		});
 		
+		JButton clearButton = new JButton("Clear All Preferences");
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				clearPreferences();
+			}
+		});
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(3,1));
+		buttonPanel.add(performButton);
+		buttonPanel.add(clearButton);
+		buttonPanel.add(doneButton);
+		
+		
 		radioReq = new JRadioButton("Must work together");
 		radioForbid = new JRadioButton("Can't work together");
 		
@@ -96,8 +110,7 @@ public class preferenceWindow extends JFrame {
 		radioPanel.add(radioForbid);
 
 		southPanel.add(radioPanel, BorderLayout.NORTH);
-		southPanel.add(performButton, BorderLayout.CENTER);
-		southPanel.add(doneButton, BorderLayout.SOUTH);
+		southPanel.add(buttonPanel, BorderLayout.CENTER);
 		preferenceWindow.add(southPanel, BorderLayout.SOUTH);
 		preferenceWindow.setVisible(true);
 
@@ -145,6 +158,15 @@ public class preferenceWindow extends JFrame {
 		JOptionPane.showMessageDialog(getContentPane(), "Preferences successfully saved.");
 		for (Node n : display) {
 			n.box.setSelected(false);
+		}
+	}
+	
+	private void clearPreferences() {
+		String message = "Warning:  This will clear ALL of your preferences for this project.  Do you wish to continue?";
+		int response = JOptionPane.showConfirmDialog((Component) null, message, "alert", JOptionPane.OK_CANCEL_OPTION);
+		System.out.println(response);
+		if (response == 0) {
+			Controller.project.clearMemberPreferences();
 		}
 	}
 
