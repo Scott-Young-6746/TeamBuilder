@@ -24,8 +24,11 @@ import ca.mun.team.Team;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @SuppressWarnings({ "serial", "unused" })
@@ -262,6 +265,26 @@ public class MainFrame extends JFrame {
 						}
 					} 
 					catch(Exception e) {}
+					//printing the created groups into a text file on the desktop
+					BufferedWriter writer = null;
+				    try {
+	
+				    	writer = new BufferedWriter(new FileWriter(System.getProperty("user.home")+"/Desktop/Generated_Groups.txt"));
+				        writer.write(groupTextArea.getText());
+				    } catch (IOException e) {
+				        System.err.println(e);
+				    } finally {
+				        if (writer != null) {
+				            try {
+				                writer.close();
+				            } catch (IOException e) {
+				                System.err.println(e);
+				            }            
+				            JOptionPane.showMessageDialog(getContentPane(), "Text file of generated groups have been saved to your desktop under the name 'Generated_Groups.txt'");
+				        }
+				    }
+					
+					
 				}
 			
 			}
